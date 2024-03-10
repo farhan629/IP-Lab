@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+form {
+    padding: 10px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+
+#form{
+    background-color: gray;
+    width: 700px;
+    height: 900px;
+}
+#id{
+    width: 20px;
+    height: 2opx;
+}

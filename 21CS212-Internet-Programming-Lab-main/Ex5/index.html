@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div id="form">
+    <form id="registrationForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+        <label for="mail">Email:</label><br>
+        <input type="email" id="mail" name="mail"><br>
+        <label for="gender">Gender:</label><br>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br>
+        <label for="pwd">Password:</label><br>
+        <input type="password" id="pwd" name="pwd"><br>
+        <label for="cpwd">Confirm Password:</label><br>
+        <input type="password" id="cpwd" name="cpwd"><br>
+        <label for="mobile">Mobile Number:</label><br>
+        <input type="tel" id="mobile" name="mobile"><br>
+        <label for="dob">Date of Birth:</label><br>
+        <input type="date" id="dob" name="dob"><br>
+        <label for="address">Address:</label><br>
+        <textarea id="address" name="address"></textarea><br>
+        <label for="location">Location:</label><br>
+        <select id="location" name="location">
+        <option value="male">Tamil Nadu</option>
+            <option value="female">Delhi</option></select>
+        <br>
+        <input id="button"type="submit" value="Submit">
+        <input id="button"type="button" value="clear">
+    </form>
+    </div>
+</body>
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Here you can add your validation and submission logic
+    console.log('Form submitted:', event.target);
+});
+</script>
+</html>
