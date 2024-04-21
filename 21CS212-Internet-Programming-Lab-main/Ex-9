@@ -1,0 +1,124 @@
+
+Country.java:
+public class Country 
+{
+    private String name;
+    private String capital;
+    private String currency;
+    private int population;
+    public Country(String name, String capital, String currency, int population)
+    {
+        this.name = name;
+        this.capital = capital;
+        this.currency = currency;
+        this.population = population;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getCapital() {
+        return capital;
+    }
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+    public String getCurrency() {
+        return currency;
+    }
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+    public int getPopulation() {
+        return population;
+    }
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+}
+
+CountryServlet.java:
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+@WebServlet(urlPatterns = {"/NewServlet"})
+public class CountryServlet extends HttpServlet { 
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+        List<Country> countries = new ArrayList<>();
+        countries.add(new Country("India", "New Delhi", "INR", 1380000000));
+        countries.add(new Country("Brazil", "Brasília", "BRL", 213000000));
+        countries.add(new Country("USA", "Washington D.C.", "USD", 331000000));
+        countries.add(new Country("China", "Beijing", "CNY", 1440000000));
+        countries.add(new Country("Russia", "Moscow", "RUB", 146000000));
+        request.setAttribute("countries", countries);        
+        ArrayList<Integer> pop = new ArrayList<>();
+        for (Country country : countries) {
+            pop.add(country.getPopulation());
+        }
+        Collections.sort(pop,Collections.reverseOrder());
+        int top=pop.get(2);
+        request.setAttribute("top",Integer.toString(top));
+        request.getRequestDispatcher("Countryjsp.jsp").forward(request, response);
+        }
+    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }
+}
+
+Countryjsp.jsp:
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Country Information</title>
+    <style>
+        .top-population {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Country Information</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Capital</th>
+            <th>Currency</th>
+            <th>Population</th>
+        </tr>
+        <c:forEach var="country" items="${countries}" varStatus="loop">
+            <tr class="<c:if test="${country.population>=top}">top-population</c:if>">
+                <td>${country.name}</td>
+                <td>${country.capital}</td>
+                <td>${country.currency}</td>
+                <td>${country.population}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</body>
+</html>
